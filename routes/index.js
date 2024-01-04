@@ -21,24 +21,29 @@ router.get("/workouts", function (req, res, next) {
 });
 
 router.get("/api/exercises", async (req, res) => {
+  // loop through query for fetch call?
   const muscleGroup = req.query.muscle;
+  const difficulty = req.query.difficulty;
+  const type = req.query.type;
   const apiKey = process.env.API_KEY;
 
+  // replaces spaces with underscores
+  muscleGroup.split("").includes(" ")
+    ? muscleGroup.replace(" ", "_")
+    : muscleGroup;
+  type.split("").includes(" ") ? type.replace(" ", "_") : type;
+
+  // need error handling so that input is required in at least one field
   const response = await fetch(
-    `https://api.api-ninjas.com/v1/exercises?muscle=${encodeURIComponent(
-      muscleGroup
-    )}&x-api-key=${apiKey}`
+    `https://api.api-ninjas.com/v1/exercises?muscle=${
+      muscleGroup ? "&" + muscleGroup : null
+    }${difficulty ? "&" + difficulty : null}${
+      type ? "&" + type : null
+    }&x-api-key=${apiKey}`
   );
   const data = await response.json();
 
   res.json(data);
-});
-
-router.use("*", (req, res) => {
-  res.render("404", {
-    title: "404",
-    name: "Reggie Cheston",
-  });
 });
 
 router.post("/login", function (request, response, next) {
@@ -67,4 +72,12 @@ router.post("/login", function (request, response, next) {
     });
   }
 });
+
+router.use("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Reggie Cheston",
+  });
+});
+
 module.exports = router;
