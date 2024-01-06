@@ -38,6 +38,7 @@ router.get("/workouts", function (req, res, next) {
     name: "Reggie Cheston",
   });
 });
+//replacedwith this
 
 router.get("/api/exercises", async (req, res) => {
   const muscleGroup = req.query.muscle;
