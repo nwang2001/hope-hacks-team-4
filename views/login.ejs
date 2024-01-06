@@ -1,69 +1,73 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Frenzy</title>
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link rel="stylesheet" href="/css/shared.css" />
-  </head>
-  <body>
-    <header>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="/" class="brand-logo center"
-            ><img src="/img/frenzyyellow.png"
-          /></a>
-          <ul class="right">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/workouts">Workout Builder</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <main>
-      <div class="search-bar">
-        <body>
-          <h1>Welcome to the place, <%= userData.firstName %>!</h1>
-          <p>User Information:</p>
-          <ul>
-            <li>Email: <%= userEmail %></li>
-            <li>Name: <%= userData.firstName %></li>
-            <li>ID: <%=userData.userID%></li>
-            <!-- ff -->
-          </ul>
-        </body>
-        <form>
-          <input name="exerciseTitle" placeholder="Workout" />
-          <button>Search</button>
-        </form>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frenzy</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="stylesheet" href="/css/shared.css" />
+  <link rel="icon" href="/img/smalllogo.png" type="image/x-icon"/>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo center"><img src="/img/frenzyyellow.png" /></a>
+        <ul class="right">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/workouts">Workout Builder</a></li>
+        </ul>
       </div>
-    </main>
-    <div class="main-content">
-      <div id="search-results"></div>
+    </nav>
+  </header>
+  <main>
+    <div class="search-bar">
+
+      <body>
+        <h1>Welcome to the place, <%= userData.firstName %>!</h1>
+        <p>User Information:</p>
+        <ul>
+          <li>Email: <%= userEmail %>
+          </li>
+          <li>Name: <%= userData.firstName %>
+          </li>
+          <li>ID: <%=userData.userID%>
+          </li>
+          <!-- ff -->
+        </ul>
+      </body>
+      <form>
+        <input name="exerciseTitle" placeholder="Workout" />
+        <button>Search</button>
+      </form>
     </div>
-    <footer class="page-footer">
-      <div class="container">
-        <div>
-          <div class="col l6 s12"></div>
-          <div class="col l4 offset-l2 s12">
-            <h5>Links</h5>
-            <ul class="row">
-              <li><a href="#!">Home</a></li>
-              <li><a href="#!">How It Works</a></li>
-              <li><a href="#!">Contact</a></li>
-              <li><a href="#!">Terms and Conditions</a></li>
-              <li><a href="#!">Privacy Policy</a></li>
-            </ul>
-          </div>
+  </main>
+  <div class="main-content">
+    <div id="search-results"></div>
+  </div>
+  <footer class="page-footer">
+    <div class="container">
+      <div>
+        <div class="col l6 s12"></div>
+        <div class="col l4 offset-l2 s12">
+          <h5>Links</h5>
+          <ul class="row">
+            <li><a href="#!">Home</a></li>
+            <li><a href="#!">How It Works</a></li>
+            <li><a href="#!">Contact</a></li>
+            <li><a href="#!">Terms and Conditions</a></li>
+            <li><a href="#!">Privacy Policy</a></li>
+          </ul>
         </div>
       </div>
-      <div class="footer-copyright">
-        <div class="container">&copy;2023 FRENZY, All Rights Reserved</div>
-      </div>
-    </footer>
-    <script src="/js/app.js"></script>
-  </body>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">&copy;2023 FRENZY, All Rights Reserved</div>
+    </div>
+  </footer>
+  <script src="/js/app.js"></script>
+</body>
+
 </html>
