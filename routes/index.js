@@ -38,7 +38,35 @@ router.get("/workouts", function (req, res, next) {
     name: "Reggie Cheston",
   });
 });
-//replacedwith this
+//replaced this
+
+// router.get("/api/exercises", async (req, res) => {
+//   // loop through query for fetch call?
+//   const muscleGroup = req.query.muscle;
+//   const difficulty = req.query.difficulty;
+//   const type = req.query.type;
+//   const apiKey = process.env.API_KEY;
+
+//   // replaces spaces with underscores
+//   muscleGroup.split("").includes(" ")
+//     ? muscleGroup.replace(" ", "_")
+//     : muscleGroup;
+//   type.split("").includes(" ") ? type.replace(" ", "_") : type;
+
+//   // need error handling so that input is required in at least one field
+//   const response = await fetch(
+//     `https://api.api-ninjas.com/v1/exercises?muscle=${
+//       muscleGroup ? "&" + muscleGroup : null
+//     }${difficulty ? "&" + difficulty : null}${
+//       type ? "&" + type : null
+//     }&x-api-key=${apiKey}`
+//   );
+//   const data = await response.json();
+
+//   res.json(data);
+// });
+
+// with this and DB works
 
 router.get("/api/exercises", async (req, res) => {
   const muscleGroup = req.query.muscle;
@@ -70,31 +98,6 @@ router.get("/api/exercises", async (req, res) => {
   const data = await response.json();
   res.json(data);
 });
-// router.get("/api/exercises", async (req, res) => {
-//   // loop through query for fetch call?
-//   const muscleGroup = req.query.muscle;
-//   const difficulty = req.query.difficulty;
-//   const type = req.query.type;
-//   const apiKey = process.env.API_KEY;
-
-//   // replaces spaces with underscores
-//   muscleGroup.split("").includes(" ")
-//     ? muscleGroup.replace(" ", "_")
-//     : muscleGroup;
-//   type.split("").includes(" ") ? type.replace(" ", "_") : type;
-
-//   // need error handling so that input is required in at least one field
-//   const response = await fetch(
-//     `https://api.api-ninjas.com/v1/exercises?muscle=${
-//       muscleGroup ? "&" + muscleGroup : null
-//     }${difficulty ? "&" + difficulty : null}${
-//       type ? "&" + type : null
-//     }&x-api-key=${apiKey}`
-//   );
-//   const data = await response.json();
-
-//   res.json(data);
-// });
 
 router.post("/login", function (request, response, next) {
   console.log(request.body);
