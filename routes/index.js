@@ -6,10 +6,29 @@ dotenv.config();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "Home",
-    name: "Reggie Cheston",
-  });
+  res.render("index", { title: "Express", session: req.session });
+});
+router.post("/login", function (request, response, next) {
+  console.log(request.body);
+  const userEmail = request.body.user_email_address;
+  const userPassword = request.body.user_password;
+
+  if (userEmail && userPassword) {
+    const myQuery = `
+      SELECT * FROM users
+      WHERE email = "${userEmail}"
+    `;
+
+    database.query(myQuery, function (error, data) {
+      if (data.length > 0 && data[0].password === userPassword) {
+        // Render the user profile page with the user's information
+        response.render("login", { userEmail, userData: data[0] });
+      } else {
+        console.log("Errr, incorrect credentials!");
+        response.send("Incorrect credentials.");
+      }
+    });
+  }
 });
 
 router.post("/login", function (request, response, next) {
@@ -46,30 +65,64 @@ router.get("/workouts", function (req, res, next) {
     name: "Reggie Cheston",
   });
 });
+//replaced this
+
+// router.get("/api/exercises", async (req, res) => {
+//   // loop through query for fetch call?
+//   const muscleGroup = req.query.muscle;
+//   const difficulty = req.query.difficulty;
+//   const type = req.query.type;
+//   const apiKey = process.env.API_KEY;
+
+//   // replaces spaces with underscores
+//   muscleGroup.split("").includes(" ")
+//     ? muscleGroup.replace(" ", "_")
+//     : muscleGroup;
+//   type.split("").includes(" ") ? type.replace(" ", "_") : type;
+
+//   // need error handling so that input is required in at least one field
+//   const response = await fetch(
+//     `https://api.api-ninjas.com/v1/exercises?muscle=${
+//       muscleGroup ? "&" + muscleGroup : null
+//     }${difficulty ? "&" + difficulty : null}${
+//       type ? "&" + type : null
+//     }&x-api-key=${apiKey}`
+//   );
+//   const data = await response.json();
+
+//   res.json(data);
+// });
+
+// with this and DB works
 
 router.get("/api/exercises", async (req, res) => {
-  // loop through query for fetch call?
   const muscleGroup = req.query.muscle;
   const difficulty = req.query.difficulty;
-  const type = req.query.type;
+  let type = req.query.type; // Declare type variable
+
   const apiKey = process.env.API_KEY;
 
-  // replaces spaces with underscores
-  muscleGroup.split("").includes(" ")
-    ? muscleGroup.replace(" ", "_")
-    : muscleGroup;
-  type.split("").includes(" ") ? type.replace(" ", "_") : type;
+  // Replace spaces with underscores if type is defined
+  if (type) {
+    type = type.includes(" ") ? type.replace(/ /g, "_") : type;
+  }
 
-  // need error handling so that input is required in at least one field
+  // Add error handling to ensure at least one query parameter is provided
+  if (!muscleGroup && !difficulty && !type) {
+    return res
+      .status(400)
+      .json({ error: "At least one query parameter is required." });
+  }
+
   const response = await fetch(
     `https://api.api-ninjas.com/v1/exercises?muscle=${
-      muscleGroup ? "&" + muscleGroup : null
-    }${difficulty ? "&" + difficulty : null}${
-      type ? "&" + type : null
+      muscleGroup ? "&" + muscleGroup : ""
+    }${difficulty ? "&" + difficulty : ""}${
+      type ? "&" + type : ""
     }&x-api-key=${apiKey}`
   );
-  const data = await response.json();
 
+  const data = await response.json();
   res.json(data);
 });
 

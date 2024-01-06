@@ -1,11 +1,16 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(90deg, #c8bba2 0%, #b09158 50%);
 }
 
-main {
-  flex: 1 0 auto;
+header {
+  height: 6em;
+  background-color: black;
 }
 
 nav {
@@ -40,6 +45,15 @@ nav ul li.active {
 
 nav ul li:hover {
   background-color: rgba(250, 249, 249, 0.541);
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+height: 12em;
+background-color: black;
 }
 
 .page-footer {
