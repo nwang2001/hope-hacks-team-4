@@ -65,6 +65,10 @@
   display: none;
 }
 
+input.btn.btn-primary{
+  background-color: #edd3a3;
+}
+
 body {
   background: linear-gradient(90deg, #9e9583 0%, #b78e42 50%);
   font-family: "Roboto", sans-serif;
