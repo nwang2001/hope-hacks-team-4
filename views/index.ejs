@@ -26,31 +26,34 @@
       <div class="login-page">
         <div class="form">
           <form class="register-form">
-            <input type="text" placeholder="first name" />
-            <input type="text" placeholder="last name" />
-            <input type="password" placeholder="password" />
-            <input type="text" placeholder="email address" />
+            <input type="text" placeholder="First Name" />
+            <input type="text" placeholder="Last Name" />
+            <input type="password" placeholder="Password" />
+            <input type="text" placeholder="Email Address" />
             <button>create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
           </form>
-          <form method="post" action="/login">
+          <form method="post" class="login-form" action="/login">
             <div class="mb-3">
-              <label>Email Address</label>
               <input
                 type="email"
+                placeholder="Email"
                 name="user_email_address"
                 class="form-control" />
             </div>
             <div class="mb-3">
-              <label>Password</label>
               <input
+              placeholder="Password"
                 type="password"
                 name="user_password"
                 class="form-control" />
             </div>
             <div class="mb-3">
-              <input type="submit" class="btn btn-primary" value="Login" />
-            </div>
+              <button>submit</button>
+            </div>             
+            <p class="message">
+              Not registered? <a href="#">Create an account</a>
+            </p>
           </form>
         </div>
       </div>
