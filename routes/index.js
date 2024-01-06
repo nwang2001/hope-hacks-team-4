@@ -6,10 +6,29 @@ dotenv.config();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "Home",
-    name: "Reggie Cheston",
-  });
+  res.render("index", { title: "Express", session: req.session });
+});
+router.post("/login", function (request, response, next) {
+  console.log(request.body);
+  const userEmail = request.body.user_email_address;
+  const userPassword = request.body.user_password;
+
+  if (userEmail && userPassword) {
+    const myQuery = `
+      SELECT * FROM users
+      WHERE email = "${userEmail}"
+    `;
+
+    database.query(myQuery, function (error, data) {
+      if (data.length > 0 && data[0].password === userPassword) {
+        // Render the user profile page with the user's information
+        response.render("login", { userEmail, userData: data[0] });
+      } else {
+        console.log("Errr, incorrect credentials!");
+        response.send("Incorrect credentials.");
+      }
+    });
+  }
 });
 
 /* GET workouts page. */
@@ -41,30 +60,4 @@ router.use("*", (req, res) => {
   });
 });
 
-router.post("/login", function (request, response, next) {
-  console.log(request.body);
-  const userEmail = request.body.user_email_address;
-  const userPassword = request.body.user_password;
-  if (userEmail && userPassword) {
-    myQuery = `
-    SELECT * FROM argh
-    WHERE email = "${userEmail}"
-    `;
-    database.query(myQuery, function (error, data) {
-      if (data.length > 0) {
-        if (data[0].password === userPassword) {
-          console.log(data);
-          console.log("Welcome to the place!");
-          response.redirect("/");
-        } else {
-          console.log("Errr, incorrect password!");
-          response.send("Incorrect password.");
-        }
-      } else {
-        console.log("Errr, incorrect email!");
-        response.send("Incorrect email.");
-      }
-    });
-  }
-});
 module.exports = router;
