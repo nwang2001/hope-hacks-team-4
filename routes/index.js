@@ -31,6 +31,33 @@ router.post("/login", function (request, response, next) {
   }
 });
 
+router.post("/login", function (request, response, next) {
+  console.log(request.body);
+  const userEmail = request.body.user_email_address;
+  const userPassword = request.body.user_password;
+  if (userEmail && userPassword) {
+    myQuery = `
+    SELECT * FROM users
+    WHERE email = "${userEmail}"
+    `;
+    database.query(myQuery, function (error, data) {
+      if (data.length > 0) {
+        if (data[0].password === userPassword) {
+          console.log(data);
+          console.log("Welcome to the place!");
+          response.redirect("/");
+        } else {
+          console.log("Errr, incorrect password!");
+          response.send("Incorrect password.");
+        }
+      } else {
+        console.log("Errr, incorrect email!");
+        response.send("Incorrect email.");
+      }
+    });
+  }
+});
+
 /* GET workouts page. */
 router.get("/workouts", function (req, res, next) {
   res.render("workouts", {
@@ -99,30 +126,11 @@ router.get("/api/exercises", async (req, res) => {
   res.json(data);
 });
 
-router.post("/login", function (request, response, next) {
-  console.log(request.body);
-  const userEmail = request.body.user_email_address;
-  const userPassword = request.body.user_password;
-  if (userEmail && userPassword) {
-    myQuery = `
-    SELECT * FROM argh
-    WHERE email = "${userEmail}"
-    `;
-    database.query(myQuery, function (error, data) {
-      if (data.length > 0) {
-        if (data[0].password === userPassword) {
-          console.log(data);
-          console.log("Welcome to the place!");
-          response.redirect("/");
-        } else {
-          console.log("Errr, incorrect password!");
-          response.send("Incorrect password.");
-        }
-      } else {
-        console.log("Errr, incorrect email!");
-        response.send("Incorrect email.");
-      }
-    });
-  }
+router.use("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Reggie Cheston",
+  });
 });
+
 module.exports = router;
