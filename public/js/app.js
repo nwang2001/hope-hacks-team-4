@@ -1,9 +1,9 @@
-const movieForm = document.querySelector("form");
+const searchForm = document.querySelector("form");
 const search = document.querySelector("input");
 const searchResults = document.getElementById("search-results");
 const pageTitle = document.querySelector("h1");
 
-movieForm.addEventListener("submit", async (e) => {
+searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const muscleGroup = search.value.trim();
@@ -34,12 +34,12 @@ movieForm.addEventListener("submit", async (e) => {
       searchResults.insertAdjacentHTML(
         "beforeend",
         `<div class="search-result">
-            <div class="movie-details">
-                <h3 class="movie-title">${e.name}</h3>
-                <p class="movie-overview">${e.instructions}</p>
-                <div class="movie-details__btns">
-                    <button class="movie-details__btn">More Info</button>
-                    <button class="movie-details__btn cta-btn" data-movie-id="${e.muscle}" data-title="${e.name}">Add to Workout</button>
+            <div class="exercise-details">
+                <h3 class="exercise-title">${e.name}</h3>
+                <p class="exercise-overview">${e.instructions}</p>
+                <div class="exercise-details__btns">
+                    <button class="exercise-details__btn">More Info</button>
+                    <button class="exercise-details__btn cta-btn" data-exercise-id="${e.muscle}" data-title="${e.name}">Add to Workout</button>
                 </div>
             </div>
         </div>`
