@@ -1,12 +1,13 @@
 label {
-    font-size: 8em;
     font-family: inherit;
-    color: black;
+    color: rgb(31, 30, 30);
+    font-weight: 600;
+    font-size: 1.5em;
 }
 
 select {
-    padding: 1.5em;
-    display: flex;
+    display: inline;
+    font-family: inherit;
 }
 
 .flex-container {
@@ -19,8 +20,9 @@ select {
 button {
     font-size: 16px;
     font-weight: 300;
+    font-family: inherit;
     padding: 20px;
-    background-color: #01778c;
+    background-color: #2e220b;
     color: white;
     cursor: pointer;
     border: none;
@@ -29,4 +31,12 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+button::selection {
+    background-color: #4b3712;
+}
+
+button:hover {
+    background-color: #4b3712;
 }
