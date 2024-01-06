@@ -59,34 +59,68 @@ var connection = require('./database');
 //     }
 //   });
 
-router.post("/register", function (request, response, next) {
-    console.log(request.body);
-    const firstName = request.body.user_first_name;
-    const lastName = request.body.user_last_name;
-    const userEmail = request.body.user_email_address;
-    const userPassword = request.body.user_password;
+// router.post("/register", function (request, response, next) {
+//     console.log(request.body);
+//     const firstName = request.body.user_first_name;
+//     const lastName = request.body.user_last_name;
+//     const userEmail = request.body.user_email_address;
+//     const userPassword = request.body.user_password;
 
-    if (userEmail && userPassword && firstName && lastName) {
-        const newUser = {
-            user_first_name: firstName,
-            user_last_name: lastName,
-            user_email_address: userEmail,
-            user_password: userPassword
-        };
+//     if (userEmail && userPassword && firstName && lastName) {
+//         const newUser = {
+//             user_first_name: firstName,
+//             user_last_name: lastName,
+//             user_email_address: userEmail,
+//             user_password: userPassword
+//         };
 
-        const myQuery = 'INSERT INTO users SET ?';
+//         const myQuery = 'INSERT INTO users SET ?';
 
-        database.query(myQuery, newUser, function (error, result) {
-            if (error) {
-                console.log("Error inserting user:", error);
-                response.send("Error inserting user.");
-            } else {
-                console.log("User inserted successfully!");
-                response.redirect("/register");
-            }
-        });
+//         database.query(myQuery, newUser, function (error, result) {
+//             if (error) {
+//                 console.log("Error inserting user:", error);
+//                 response.send("Error inserting user.");
+//             } else {
+//                 console.log("User inserted successfully!");
+//                 response.redirect("/register");
+//             }
+//         });
+//     } else {
+//         console.log("Missing required fields");
+//         response.send("Please fill in all required fields.");
+//     }
+// });
+
+// const express = require('express');
+// const mysql = require('mysql');
+
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.use(express.json());
+
+
+app.post('/register', (req, res) => {
+  const { firstName, lastName, password, email } = req.body;
+    console.log(req.body)
+  const query = `INSERT INTO users (firstName, lastName, password, email) VALUES (?, ?, ?, ?)`;
+  const values = [firstName, lastName, password, email];
+
+  connection.query(query, values, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error registering user' });
     } else {
-        console.log("Missing required fields");
-        response.send("Please fill in all required fields.");
+      res.json({ message: 'User registered successfully' });
     }
+  });
 });
+
+
+
+// app.listen(3000, () => {
+//   console.log('Server started on port 3000');
+// });
