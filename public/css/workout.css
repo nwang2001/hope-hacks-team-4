@@ -1,0 +1,32 @@
+label {
+    font-size: 8em;
+    font-family: inherit;
+    color: black;
+}
+
+select {
+    padding: 1.5em;
+    display: flex;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+button {
+    font-size: 16px;
+    font-weight: 300;
+    padding: 20px;
+    background-color: #01778c;
+    color: white;
+    cursor: pointer;
+    border: none;
+    height: 2em;
+    margin: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
