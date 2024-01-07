@@ -79,6 +79,29 @@ router.post("/register", function (request, response, next) {
   }
 });
 module.exports = router;
+
+router.post("/register", function (request, response, next) {
+  console.log(request.body);
+
+  const { firstName, lastName, password, email } = request.body;
+
+  const values = [firstName, lastName, password, email];
+
+  const myQuery = `
+      INSERT INTO users (firstName, lastName, password, email) VALUES (?, ?, ?, ?)
+    `;
+
+  database.query(myQuery, values, function (error, data) {
+    if (data.length > 0 && data[0].password === userPassword) {
+      console.log("Errr, incorrect credentials!");
+      response.send("Incorrect credentials.");
+    } else {
+      // Render the user profile page with the user's information
+      response.render("login", { email, userData: data[0] });
+    }
+  });
+});
+
 // router.post("/login", function (request, response, next) {
 //   console.log(request.body);
 //   const userEmail = request.body.user_email_address;
