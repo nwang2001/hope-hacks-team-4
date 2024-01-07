@@ -25,7 +25,7 @@
     <main>
       <div class="login-page">
         <div class="form">
-          <form class="register-form">
+          <form class="register-form" method="post" action="/register">
             <input type="text" placeholder="First Name" />
             <input type="text" placeholder="Last Name" />
             <input type="password" placeholder="Password" />
@@ -43,14 +43,14 @@
             </div>
             <div class="mb-3">
               <input
-              placeholder="Password"
+                placeholder="Password"
                 type="password"
                 name="user_password"
                 class="form-control" />
             </div>
             <div class="mb-3">
               <button>submit</button>
-            </div>             
+            </div>
             <p class="message">
               Not registered? <a href="#">Create an account</a>
             </p>
