@@ -17,5 +17,3 @@ connection.connect(function (err) {
 });
 
 module.exports = connection;
-
-//added files into .env
