@@ -31,7 +31,54 @@ router.post("/login", function (request, response, next) {
     });
   }
 });
-
+router.post("/register", function (request, response, next) {
+  console.log(request.body);
+  const firstName = request.body.first_name;
+  const lastName = request.body.last_name;
+  const userEmail = request.body.email;
+  const userPassword = request.body.password;
+  if (firstName && lastName && userEmail && userPassword) {
+    // Check if the user already exists
+    const checkUserQuery = `
+      SELECT * FROM users
+      WHERE email = ?;
+    `;
+    database.query(checkUserQuery, [userEmail], function (error, results) {
+      if (error) {
+        console.error("Error checking user existence:", error);
+        response.send("Error checking user existence.");
+      } else {
+        if (results.length > 0) {
+          console.log("User already exists!");
+          response.send("User already exists.");
+        } else {
+          // If the user doesn't exist, insert into the database
+          const createUserQuery = `
+            INSERT INTO users (firstName, lastName, email, password)
+            VALUES (?, ?, ?, ?);
+          `;
+          database.query(
+            createUserQuery,
+            [firstName, lastName, userEmail, userPassword],
+            function (error, result) {
+              if (error) {
+                console.error("Error creating user:", error);
+                response.send("Error creating user.");
+              } else {
+                console.log("User created successfully!");
+                response.send("User created successfully.");
+              }
+            }
+          );
+        }
+      }
+    });
+  } else {
+    console.log("gege");
+    response.send("Invalid user data.");
+  }
+});
+module.exports = router;
 // router.post("/login", function (request, response, next) {
 //   console.log(request.body);
 //   const userEmail = request.body.user_email_address;
