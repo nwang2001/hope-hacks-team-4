@@ -8,6 +8,7 @@ dotenv.config();
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express", session: req.session });
 });
+
 router.post("/login", function (request, response, next) {
   console.log(request.body);
   const userEmail = request.body.user_email_address;
@@ -30,6 +31,33 @@ router.post("/login", function (request, response, next) {
     });
   }
 });
+
+// router.post("/login", function (request, response, next) {
+//   console.log(request.body);
+//   const userEmail = request.body.user_email_address;
+//   const userPassword = request.body.user_password;
+//   if (userEmail && userPassword) {
+//     myQuery = `
+//     SELECT * FROM users
+//     WHERE email = "${userEmail}"
+//     `;
+//     database.query(myQuery, function (error, data) {
+//       if (data.length > 0) {
+//         if (data[0].password === userPassword) {
+//           console.log(data);
+//           console.log("Welcome to the place!");
+//           response.redirect("/");
+//         } else {
+//           console.log("Errr, incorrect password!");
+//           response.send("Incorrect password.");
+//         }
+//       } else {
+//         console.log("Errr, incorrect email!");
+//         response.send("Incorrect email.");
+//       }
+//     });
+//   }
+// });
 
 /* GET workouts page. */
 router.get("/workouts", function (req, res, next) {
@@ -69,7 +97,7 @@ router.get("/workouts", function (req, res, next) {
 // with this and DB works
 
 router.get("/api/exercises", async (req, res) => {
-  const muscleGroup = req.query.muscle;
+  let muscleGroup = req.query.muscle;
   const difficulty = req.query.difficulty;
   let type = req.query.type; // Declare type variable
 
@@ -80,6 +108,12 @@ router.get("/api/exercises", async (req, res) => {
     type = type.includes(" ") ? type.replace(/ /g, "_") : type;
   }
 
+  if (muscleGroup) {
+    muscleGroup = muscleGroup.includes(" ")
+      ? muscleGroup.replace(/ /g, "_")
+      : muscleGroup;
+  }
+
   // Add error handling to ensure at least one query parameter is provided
   if (!muscleGroup && !difficulty && !type) {
     return res
@@ -88,10 +122,12 @@ router.get("/api/exercises", async (req, res) => {
   }
 
   const response = await fetch(
-    `https://api.api-ninjas.com/v1/exercises?muscle=${
-      muscleGroup ? "&" + muscleGroup : ""
-    }${difficulty ? "&" + difficulty : ""}${
-      type ? "&" + type : ""
+    `https://api.api-ninjas.com/v1/exercises?${
+      muscleGroup ? "muscle=" + muscleGroup : ""
+    }${
+      difficulty ? (muscleGroup ? "&" : "") + "difficulty=" + difficulty : ""
+    }${
+      type ? (muscleGroup || difficulty ? "&" : "") + "type=" + type : ""
     }&x-api-key=${apiKey}`
   );
 
@@ -99,30 +135,11 @@ router.get("/api/exercises", async (req, res) => {
   res.json(data);
 });
 
-router.post("/login", function (request, response, next) {
-  console.log(request.body);
-  const userEmail = request.body.user_email_address;
-  const userPassword = request.body.user_password;
-  if (userEmail && userPassword) {
-    myQuery = `
-    SELECT * FROM argh
-    WHERE email = "${userEmail}"
-    `;
-    database.query(myQuery, function (error, data) {
-      if (data.length > 0) {
-        if (data[0].password === userPassword) {
-          console.log(data);
-          console.log("Welcome to the place!");
-          response.redirect("/");
-        } else {
-          console.log("Errr, incorrect password!");
-          response.send("Incorrect password.");
-        }
-      } else {
-        console.log("Errr, incorrect email!");
-        response.send("Incorrect email.");
-      }
-    });
-  }
+router.use("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Reggie Cheston",
+  });
 });
+
 module.exports = router;

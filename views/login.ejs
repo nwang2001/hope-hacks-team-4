@@ -19,7 +19,6 @@
           <ul class="right">
             <li class="active"><a href="/">Home</a></li>
             <li><a href="/workouts">Workout Builder</a></li>
-            <li><a href="/profile">Profile</a></li>
           </ul>
         </div>
       </nav>
@@ -27,19 +26,20 @@
     <main>
       <div class="search-bar">
         <body>
-          <h1>Welcome to the place, <%= userData.firstName %>!</h1>
+          <h1>Welcome, to Frenzy <%= userData.firstName %>!</h1>
+          <h3>We're excited to see you begin your journey</h3>
           <p>User Information:</p>
           <ul>
             <li>Email: <%= userEmail %></li>
             <li>Name: <%= userData.firstName %></li>
             <li>ID: <%=userData.userID%></li>
-            <!-- ff -->
+            <li>workouts:</li>
           </ul>
         </body>
-        <form>
-          <input name="movieTitle" placeholder="Workout" />
+        <!-- <form>
+          <input name="exerciseTitle" placeholder="Workout" />
           <button>Search</button>
-        </form>
+        </form> -->
       </div>
     </main>
     <div class="main-content">

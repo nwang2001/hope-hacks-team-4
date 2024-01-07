@@ -19,7 +19,6 @@
         <ul class="right">
           <li><a href="/">Home</a></li>
           <li class="active"><a href="/workouts">Workout Builder</a></li>
-          <!-- <li><a href="/profile">Profile</a></li> -->
         </ul>
       </div>
     </nav>
@@ -28,8 +27,9 @@
     <div class="main-content">
       <form>
         <div class="flex-container">
+          <label>Search for exercises:</label>
           <div class="input-field col s12">
-              <select>
+              <select id="exercise-type">
                   <option value="" disabled selected>Choose your exercise type:</option>
                   <option value="cardio">Cardio</option>
                   <option value="olympic-weightlifting">Olympic Weightlifting</option>
@@ -39,10 +39,10 @@
                   <option value="stretching">Stretching</option>
                   <option value="strongman">Strongman</option>
               </select>
-              <label>Exercise Type Select</label>
+              <label>Exercise Type</label>
           </div>
           <div class="input-field col s12">
-              <select>
+              <select id="muscle-group">
                   <option value="" disabled selected>Choose your muscle type:</option>
                   <option value="abdominals">Abdominals</option>
                   <option value="abductors">Abductors</option>
@@ -61,18 +61,18 @@
                   <option value="traps">Traps</option>
                   <option value="triceps">Triceps</option>
               </select>
-              <label>Muscle Type Select</label>
+              <label>Muscle Group</label>
               </div>
               <div class="input-field col s12">
-              <select>
+              <select id="difficulty">
                   <option value="" disabled selected>Choose your difficulty:</option>
                   <option value="beginner">Beginner</option>
                   <option value="intermediate">Intermediate</option>
                   <option value="expert">Expert</option>
               </select>
-              <label>Difficulty Select</label>
+              <label>Difficulty</label>
               </div>
-          <button type="button" id="submit">Submit</button>
+          <button id="submit">Submit</button>
       </form>
       </div>
       </div>

@@ -1,31 +1,19 @@
 const workoutForm = document.querySelector("form");
+const search = document.querySelector("input");
 const searchResults = document.getElementById("search-results");
 const pageTitle = document.querySelector("h1");
-
-const apiKey = "qAo4gHEpxVCdAlceVArlxA==f5E6owQ6vtyXpRio";
 
 workoutForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   console.log("form submitted");
 
-  let muscleGroup = document.getElementById("muscle-group").value;
-  const difficulty = document.getElementById("difficulty").value;
-  let type = document.getElementById("exercise-type").value;
+  const muscleGroup = search.value.trim();
 
   const response = await fetch(
-    `https://api.api-ninjas.com/v1/exercises?${
-      muscleGroup ? "muscle=" + muscleGroup : ""
-    }${
-      difficulty ? (muscleGroup ? "&" : "") + "difficulty=" + difficulty : ""
-    }${
-      type ? (muscleGroup || difficulty ? "&" : "") + "type=" + type : ""
-    }&x-api-key=${apiKey}`
+    `/api/exercises?muscle=${encodeURIComponent(muscleGroup)}`
   );
-
   const data = await response.json();
-
-  console.log(data);
 
   // FIXME if statements won't be necessary if we use dropdowns
   if (data.length === 0) {
@@ -48,13 +36,12 @@ workoutForm.addEventListener("submit", async (e) => {
       searchResults.insertAdjacentHTML(
         "beforeend",
         `<div class="search-result">
-            <div class="exercise-details">
-                <h3 class="exercise-name">${e.name}</h3>
-                <small>${e.difficulty}</small>
-                <p class="exercise-instructions">${e.instructions}</p>
-                <div class="exercise-details__btns">
-                    <button class="exercise-details__btn">How-To</button>
-                    <button class="exercise-details__btn cta-btn" data-exercise-id="${e.muscle}" data-name="${e.name}">Save</button>
+            <div class="movie-details">
+                <h3 class="movie-title">${e.name}</h3>
+                <p class="movie-overview">${e.instructions}</p>
+                <div class="movie-details__btns">
+                    <button class="movie-details__btn">More Info</button>
+                    <button class="movie-details__btn cta-btn" data-movie-id="${e.muscle}" data-title="${e.name}">Add to Workout</button>
                 </div>
             </div>
         </div>`
