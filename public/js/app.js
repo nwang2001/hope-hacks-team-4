@@ -76,7 +76,7 @@ function addHowToBtnClick() {
 
   cards.forEach((card) => {
     console.log('for each loopy');
-    console.log('Instructions: ')
+    console.log('Instructions: ', e.instructions)
 
    const howToButton = card.querySelector('.how-to-btn');
 

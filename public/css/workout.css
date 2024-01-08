@@ -57,7 +57,7 @@ button:hover {
   height: 400px;
   perspective: 600px;
   overflow: scroll;
-    margin: 10px 15px;
+  margin: 10px 15px;
 }
 
 .card {
@@ -70,7 +70,6 @@ button:hover {
   transition: transform 1s;
   overflow-y: scroll;
   background-color: rgba(255, 255, 255, 0.446);
-  /* margin: 10px 15px; */
 }
 
 .card.is-flipped {
