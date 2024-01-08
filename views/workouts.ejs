@@ -1,21 +1,14 @@
 <html lang="en">
 
-
 <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Frenzy</title>
- <!-- Bootstrap CSS -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
- <link rel="stylesheet" href="/css/shared.css" />
- <link rel="stylesheet" href="/css/workout.css">
- <link rel="icon" href="/img/smalllogo.png" type="image/x-icon"/>
-
- <script>
-  const userID = "<%= userID %>";
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frenzy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="stylesheet" href="/css/shared.css" />
+  <link rel="stylesheet" href="/css/workout.css">
+  <link rel="icon" href="/img/smalllogo.png" type="image/x-icon" />
 </head>
-
 
 <body>
  <header>
@@ -31,6 +24,11 @@
  </header>
  <main>
    <div class="main-content">
+    <p>User Information:</p>
+        <ul>
+          <li id="user-id" data>ID: <%=userData.userID%>
+          </li>
+        </ul>
      <form>
        <div class="flex-container">
          <label>Search for exercises:</label>
@@ -105,7 +103,6 @@
      <div class="container">&copy;2024 FRENZY, All Rights Reserved</div>
    </div>
  </footer>
-
  <script src="/js/app.js"></script>
 </body>
 

@@ -42,7 +42,7 @@ workoutForm.addEventListener("submit", async (e) => {
     searchResults.insertAdjacentHTML(
       "afterbegin",
       `<div class="results-count">
-              <small>${data.length} results for "${muscleGroup}"</small>
+              <small>${data.length} results for "${type}", "${muscleGroup}", "${difficulty}"</small>
           </div>`
     );
     data.forEach((e) =>
@@ -50,7 +50,7 @@ workoutForm.addEventListener("submit", async (e) => {
         "beforeend",
         `<div class="search-result">
             <div class="exercise-details">
-                <h3 class="exercise-name">${e.name}</h3>
+                <h4 class="exercise-name">${e.name}</h4>
                 <small>${e.difficulty}</small>
                 <p class="exercise-instructions">${e.instructions}</p>
                 <div class="exercise-details__btns">
@@ -64,22 +64,24 @@ workoutForm.addEventListener("submit", async (e) => {
   }
 });
 
-ctaBtn.forEach((button) =>
-  button.addEventListener("click", async () => {
-    const exerciseName = button.getAttribute("data-name");
+console.log(document.getElementById("user-id").innerHTML);
 
-    const response = await fetch("/add-exercise", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userID: userID,
-        exercise_name: exerciseName,
-      }),
-    });
+// ctaBtn.forEach((button) =>
+//   button.addEventListener("click", async () => {
+//     const exerciseName = button.getAttribute("data-name");
 
-    const data = await response.json();
-    console.log(data);
-  })
-);
+//     const response = await fetch("/add-exercise", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         userID: userID,
+//         exercise_name: exerciseName,
+//       }),
+//     });
+
+//     const data = await response.json();
+//     console.log(data);
+//   })
+// );
