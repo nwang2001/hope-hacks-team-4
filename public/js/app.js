@@ -45,22 +45,46 @@ workoutForm.addEventListener("submit", async (e) => {
       searchResults.insertAdjacentHTML(
         "beforeend",
         `<div class="search-result">
-            <div class="exercise-details">
+          <div class="scene scene--card">
+            <div class="card">
+              <div class="card__face card__face--front">
+                <div class="exercise-details">
                 <h4 class="exercise-name">${e.name}</h4>
                 <small>${e.difficulty}</small>
-                <p class="exercise-instructions">${e.instructions}</p>
                 <div class="exercise-details__btns">
-                    <button class="exercise-details__btn">How-To</button>
-                    <button class="exercise-details__btn cta-btn" data-exercise-id="${e.muscle}" data-name="${e.name}">Save</button>
+                  <button class="how-to-btn">How-To</button>
+                  <button class="exercise-details__btn cta-btn" data-exercise-id="${e.muscle}" data-name="${e.name}">Save</button>
                 </div>
+              </div>
+              </div>
+              <div class="card__face card__face--back">
+              <p class="exercise-instructions">${e.instructions}</p>
             </div>
+            </div>
+          </div>
         </div>`
       )
     );
   }
+  addHowToBtnClick();
 });
 
-// pageTitle.addEventListener("click", () => {
-//   search.value = "";
-//   searchResults.textContent = "";
-// });
+function addHowToBtnClick() {
+  console.log('adding btn event listener');
+
+  var cards = document.querySelectorAll('.card');
+
+  cards.forEach((card) => {
+    console.log('for each loopy');
+    console.log('Instructions: ')
+
+   const howToButton = card.querySelector('.how-to-btn');
+
+   howToButton.addEventListener('click', function(event){
+    event.stopPropagation();
+    console.log("button clicked");
+
+    card.classList.toggle('is-flipped');
+   })
+    });
+  };

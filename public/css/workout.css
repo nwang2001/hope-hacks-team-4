@@ -48,17 +48,56 @@ button:hover {
 }
 
 .search-result {
-  width: 400px;
-  height: 600px;
-  overflow: scroll;
-  background-color: rgba(255, 255, 255, 0.446);
-  margin: 1em;
-  padding: 1em;
+  overflow: hidden;
 }
 
-.search-result .exercise-instructions {
-  overflow-y: scroll;
+.scene {
+  display: inline-block;
+  width: 350px;
+  height: 400px;
+  perspective: 600px;
+  overflow: scroll;
+    margin: 10px 15px;
+}
+
+.card {
+  position: relative;
+  width: 100%;
   height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transition: transform 1s;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 0.446);
+  /* margin: 10px 15px; */
+}
+
+.card.is-flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+.card__face {
+  font-size: 2em;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  line-height: 200px;
+  color: black;
+  text-align: center;
+  font-size: 40px;
+  backface-visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.446);
+}
+
+.card__face--front {
+  transform: rotateY(0deg);
+}
+
+.card__face--back {
+  transform: rotateY(180deg);
+  overflow-y: scroll;
+  font-size: 12px;
 }
 
 @media (max-width: 675px) {
@@ -69,12 +108,12 @@ button:hover {
     justify-content: center;
   }
 
-  .search-result {
+  /* .search-result {
     width: 300px;
     height: 450px;
     margin: 0.3em;
     padding: 0.3em;
-  }
+  } */
 
   label {
     font-size: 1em;
@@ -99,10 +138,10 @@ button:hover {
     gap: 0.5em;
   }
 
-  .search-result {
+  /* .search-result {
     width: 320px;
     height: 500px;
     margin: 0.5em;
     padding: 0.5em;
-  }
+  } */
 }
