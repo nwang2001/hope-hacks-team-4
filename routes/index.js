@@ -116,14 +116,31 @@ module.exports = router;
 
 /* GET workouts page. */
 router.get("/workouts", function (req, res, next) {
-  const userID = getUserIdFromSession(req);
+  // const userID = getUserIdFromSession(req);
 
-  res.render("workouts", {
-    title: "Workouts",
-    name: "Reggie Cheston",
-    session: req.session,
-    userID,
+  const userID = req.body.userID;
+  console.log(userID);
+  const myQuery = `
+      SELECT * FROM users
+      WHERE userID = "${userID}"
+    `;
+
+  database.query(myQuery, function (error, data) {
+    if (userID === userID) {
+      // Render the user profile page with the user's information
+      res.render("workouts", { userID, userData: data });
+    } else {
+      console.log("Errr, incorrect credentials!");
+      res.send("Incorrect credentials.");
+    }
   });
+
+  // res.render("workouts", {
+  //   title: "Workouts",
+  //   name: "Reggie Cheston",
+  //   // session: req.session,
+  //   // userID,
+  // });
 });
 
 router.get("/api/exercises", async (req, res) => {
@@ -169,7 +186,7 @@ router.get("/api/exercises", async (req, res) => {
 router.post("/add-exercise", function (request, response, next) {
   const firstName = request.body.first_name;
   const exerciseName = request.body.exercise_name;
-  const addExerciseQuery = `INSERT INTO ??_exercises (name) VALUES (?)`;
+  const addExerciseQuery = `INSERT INTO exercises_?? (name) VALUES (?)`;
 
   database.query(
     addExerciseQuery,
