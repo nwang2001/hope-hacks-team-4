@@ -1,6 +1,7 @@
 const workoutForm = document.querySelector("form");
 const searchResults = document.getElementById("search-results");
 const pageTitle = document.querySelector("h1");
+const ctaBtn = document.querySelectorAll(".cta-btn");
 
 const apiKey = "qAo4gHEpxVCdAlceVArlxA==f5E6owQ6vtyXpRio";
 
@@ -14,9 +15,12 @@ workoutForm.addEventListener("submit", async (e) => {
   let type = document.getElementById("exercise-type").value;
 
   const response = await fetch(
-    `https://api.api-ninjas.com/v1/exercises?${muscleGroup ? "muscle=" + muscleGroup : ""
-    }${difficulty ? (muscleGroup ? "&" : "") + "difficulty=" + difficulty : ""
-    }${type ? (muscleGroup || difficulty ? "&" : "") + "type=" + type : ""
+    `https://api.api-ninjas.com/v1/exercises?${
+      muscleGroup ? "muscle=" + muscleGroup : ""
+    }${
+      difficulty ? (muscleGroup ? "&" : "") + "difficulty=" + difficulty : ""
+    }${
+      type ? (muscleGroup || difficulty ? "&" : "") + "type=" + type : ""
     }&x-api-key=${apiKey}`
   );
 
@@ -52,8 +56,8 @@ workoutForm.addEventListener("submit", async (e) => {
                 <h4 class="exercise-name">${e.name}</h4>
                 <small>${e.difficulty}</small>
                 <div class="exercise-details__btns">
-                  <button class="how-to-btn">How-To</button>
-                  <button class="exercise-details__btn cta-btn" data-exercise-id="${e.muscle}" data-name="${e.name}">Save</button>
+                    <button class="exercise-details__btn">How-To</button>
+                    <button class="exercise-details__btn cta-btn" data-exercise-id="${e.muscle}" data-name="${e.name}">Save</button>
                 </div>
               </div>
               </div>
@@ -66,25 +70,24 @@ workoutForm.addEventListener("submit", async (e) => {
       )
     );
   }
-  addHowToBtnClick();
 });
 
-function addHowToBtnClick() {
-  console.log('adding btn event listener');
+ctaBtn.forEach((button) =>
+  button.addEventListener("click", async () => {
+    const exerciseName = button.getAttribute("data-name");
 
-  var cards = document.querySelectorAll('.card');
-
-  cards.forEach((card) => {
-    console.log('for each loopy');
-    console.log('Instructions: ', e.instructions)
-
-   const howToButton = card.querySelector('.how-to-btn');
-
-   howToButton.addEventListener('click', function(event){
-    event.stopPropagation();
-    console.log("button clicked");
-
-    card.classList.toggle('is-flipped');
-   })
+    const response = await fetch("/add-exercise", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userID: userID,
+        exercise_name: exerciseName,
+      }),
     });
-  };
+
+    const data = await response.json();
+    console.log(data);
+  })
+);
