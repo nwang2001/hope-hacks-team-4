@@ -1,6 +1,7 @@
 const workoutForm = document.querySelector("form");
 const searchResults = document.getElementById("search-results");
 const pageTitle = document.querySelector("h1");
+const ctaBtn = document.querySelectorAll(".cta-btn");
 
 const apiKey = "qAo4gHEpxVCdAlceVArlxA==f5E6owQ6vtyXpRio";
 
@@ -63,7 +64,22 @@ workoutForm.addEventListener("submit", async (e) => {
   }
 });
 
-// pageTitle.addEventListener("click", () => {
-//   search.value = "";
-//   searchResults.textContent = "";
-// });
+ctaBtn.forEach((button) =>
+  button.addEventListener("click", async () => {
+    const exerciseName = button.getAttribute("data-name");
+
+    const response = await fetch("/add-exercise", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userID: userID,
+        exercise_name: exerciseName,
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+  })
+);
