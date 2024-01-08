@@ -14,12 +14,9 @@ workoutForm.addEventListener("submit", async (e) => {
   let type = document.getElementById("exercise-type").value;
 
   const response = await fetch(
-    `https://api.api-ninjas.com/v1/exercises?${
-      muscleGroup ? "muscle=" + muscleGroup : ""
-    }${
-      difficulty ? (muscleGroup ? "&" : "") + "difficulty=" + difficulty : ""
-    }${
-      type ? (muscleGroup || difficulty ? "&" : "") + "type=" + type : ""
+    `https://api.api-ninjas.com/v1/exercises?${muscleGroup ? "muscle=" + muscleGroup : ""
+    }${difficulty ? (muscleGroup ? "&" : "") + "difficulty=" + difficulty : ""
+    }${type ? (muscleGroup || difficulty ? "&" : "") + "type=" + type : ""
     }&x-api-key=${apiKey}`
   );
 
@@ -41,7 +38,7 @@ workoutForm.addEventListener("submit", async (e) => {
     searchResults.insertAdjacentHTML(
       "afterbegin",
       `<div class="results-count">
-              <small>${data.length} results for "${muscleGroup}"</small>
+              <small>${data.length} results for "${type}", "${muscleGroup}", "${difficulty}"</small>
           </div>`
     );
     data.forEach((e) =>
@@ -49,7 +46,7 @@ workoutForm.addEventListener("submit", async (e) => {
         "beforeend",
         `<div class="search-result">
             <div class="exercise-details">
-                <h3 class="exercise-name">${e.name}</h3>
+                <h4 class="exercise-name">${e.name}</h4>
                 <small>${e.difficulty}</small>
                 <p class="exercise-instructions">${e.instructions}</p>
                 <div class="exercise-details__btns">
