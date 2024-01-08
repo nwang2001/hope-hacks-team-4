@@ -1,7 +1,6 @@
 const workoutForm = document.querySelector("form");
 const searchResults = document.getElementById("search-results");
 const pageTitle = document.querySelector("h1");
-const ctaBtn = document.querySelectorAll(".cta-btn");
 
 const apiKey = "qAo4gHEpxVCdAlceVArlxA==f5E6owQ6vtyXpRio";
 
@@ -62,26 +61,29 @@ workoutForm.addEventListener("submit", async (e) => {
       )
     );
   }
+  const ctaBtn = document.querySelectorAll(".cta-btn");
+  const userID = document.getElementById("user-id").dataset.value;
+  console.log(userID);
+  console.log(ctaBtn);
+
+  ctaBtn.forEach((button) =>
+    button.addEventListener("click", async () => {
+      const exerciseName = button.dataset.name;
+      console.log(exerciseName);
+      console.log("button clicked");
+      const response = await fetch("/add-exercise", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userID: userID,
+          exercise_name: exerciseName,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    })
+  );
 });
-
-console.log(document.getElementById("user-id").dataset.value);
-
-ctaBtn.forEach((button) =>
-  button.addEventListener("click", async () => {
-    const exerciseName = button.getAttribute("data-name");
-
-    const response = await fetch("/add-exercise", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userID: userID,
-        exercise_name: exerciseName,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data);
-  })
-);
