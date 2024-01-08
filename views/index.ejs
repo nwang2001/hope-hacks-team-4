@@ -57,12 +57,13 @@
 
       <div class="login-page">
         <div class="form">
-          <form class="register-form">
-            <input type="text" placeholder="first name" name="first_name"/>
-            <input type="text" placeholder="last name" name="last_name"/>
-            <input type="password" placeholder="password" name="password"/>
-            <input type="text" placeholder="email address" name="email"/>
-            <button>create</button>
+          <form class="register-form" action="/register" method="post">
+            <input type="text" placeholder="first name" id="firstName" name="firstName"/>
+            <input type="text" placeholder="last name" id="lastName" name="lastName"/>
+            <input type="text" placeholder="email address" id="email" name="email"/>
+            <input type="password" placeholder="password" id="password" name="password"/>
+            <input type="submit" value="Register">
+            <!-- <button>create</button> -->
             <p class="message">Already registered? <a href="#">Sign In</a></p>
           </form>
           <form class="login-form">

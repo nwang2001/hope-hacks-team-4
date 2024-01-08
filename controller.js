@@ -1,6 +1,6 @@
 
-var express=require("express");
-var connection = require('./database');
+// var express=require("express");
+// var connection = require('./database');
 
  
 // module.exports.register=function(req,res){
@@ -94,33 +94,77 @@ var connection = require('./database');
 // const express = require('express');
 // const mysql = require('mysql');
 
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-app.use(express.json());
+// const app = express();
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.post('/register', (req, res) => {
-  const { firstName, lastName, password, email } = req.body;
-    console.log(req.body)
-  const query = `INSERT INTO users (firstName, lastName, password, email) VALUES (?, ?, ?, ?)`;
-  const values = [firstName, lastName, password, email];
+// app.use(express.json());
 
-  connection.query(query, values, (err, rows) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Error registering user' });
-    } else {
-      res.json({ message: 'User registered successfully' });
-    }
-  });
-});
+
+// app.post('/register', (req, res) => {
+//   const { firstName, lastName, password, email } = req.body;
+//     console.log(req.body)
+//   const query = `INSERT INTO users (firstName, lastName, password, email) VALUES (?, ?, ?, ?)`;
+//   const values = [firstName, lastName, password, email];
+
+//   connection.query(query, values, (err, rows) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).json({ error: 'Error registering user' });
+//     } else {
+//       res.json({ message: 'User registered successfully' });
+//     }
+//   });
+// });
 
 
 
 // app.listen(3000, () => {
 //   console.log('Server started on port 3000');
 // });
+
+
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+
+var connection = require('./database');
+
+connection.connect((err) => {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+  console.log('connected as id ' + connection.threadId);
+});
+
+console.log("firstName, lastName, email, password");
+app.post('/register', (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const password = req.body.password;
+  
+  const query = `INSERT INTO users (firstName, lastName, email, password) VALUES ('${firstName}', '${lastName}', '${email}', '${password}')`;
+  connection.query(query, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error registering user');
+    } else {
+      res.send('User registered successfully');
+    }
+  });
+});
+
+// Start the server
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
+  });
+
