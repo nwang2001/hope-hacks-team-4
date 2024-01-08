@@ -64,24 +64,24 @@ workoutForm.addEventListener("submit", async (e) => {
   }
 });
 
-console.log(document.getElementById("user-id").innerHTML);
+console.log(document.getElementById("user-id").dataset.value);
 
-// ctaBtn.forEach((button) =>
-//   button.addEventListener("click", async () => {
-//     const exerciseName = button.getAttribute("data-name");
+ctaBtn.forEach((button) =>
+  button.addEventListener("click", async () => {
+    const exerciseName = button.getAttribute("data-name");
 
-//     const response = await fetch("/add-exercise", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         userID: userID,
-//         exercise_name: exerciseName,
-//       }),
-//     });
+    const response = await fetch("/add-exercise", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userID: userID,
+        exercise_name: exerciseName,
+      }),
+    });
 
-//     const data = await response.json();
-//     console.log(data);
-//   })
-// );
+    const data = await response.json();
+    console.log(data);
+  })
+);
