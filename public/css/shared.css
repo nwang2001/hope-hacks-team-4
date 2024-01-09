@@ -49,11 +49,12 @@ nav ul li:hover {
 
 main {
   flex: 1 0 auto;
+  margin: 0 2rem;
 }
 
 footer {
-height: 12em;
-background-color: black;
+  height: 12em;
+  background-color: black;
 }
 
 .page-footer {

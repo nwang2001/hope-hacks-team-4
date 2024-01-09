@@ -1,69 +1,79 @@
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frenzy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frenzy</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-  <link rel="stylesheet" href="/css/shared.css" />
-</head>
-
-<body>
-  <header>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="/" class="brand-logo center hide-on-med-and-down"><img src="/img/frenzyyellow.png"
-            alt="frenzy logo"></a>
-        <a href="/" class="brand-logo left hide-on-large-only"><img src="/img/smalllogo.png" alt="frenzy logo"></a>
-        <ul class="right">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="/workouts">Workout Builder</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <main>
-    <div class="search-bar">
-
-      <body>
-        <h1>Welcome, to Frenzy <%= userData.firstName %>!</h1>
-        <h3>We're excited to see you begin your journey</h3>
-        <p>User Information:</p>
-        <ul>
-          <li>Email: <%= userEmail %>
-          </li>
-          <li>Name: <%= userData.firstName %>
-          </li>
-          <li>ID: <%=userData.userID%>
-          </li>
-        </ul>
-      </body>
-    </div>
-  </main>
-  <div class="main-content">
-    <div id="search-results"></div>
-  </div>
-  <footer class="page-footer">
-    <div class="container">
-      <div>
-        <div class="col l6 s12"></div>
-        <div class="col l4 offset-l2 s12">
-          <h5>Links</h5>
-          <ul class="row">
-            <li><a href="#!">Home</a></li>
-            <li><a href="#!">How It Works</a></li>
-            <li><a href="#!">Contact</a></li>
-            <li><a href="#!">Terms and Conditions</a></li>
-            <li><a href="#!">Privacy Policy</a></li>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo center hide-on-med-and-down"
+            ><img src="/img/frenzyyellow.png" alt="frenzy logo"
+          /></a>
+          <a href="/" class="brand-logo left hide-on-large-only"
+            ><img src="/img/smalllogo.png" alt="frenzy logo"
+          /></a>
+          <ul class="right">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/workouts">Workout Builder</a></li>
           </ul>
         </div>
+      </nav>
+    </header>
+    <main>
+      <div>
+        <body>
+          <h1>Welcome, to Frenzy <%= userData.firstName %>!</h1>
+          <h3>We're excited to see you begin your journey</h3>
+          <!-- <p>User Information:</p>
+          <ul>
+            <li>Email: <%= userEmail %></li>
+            <li>Name: <%= userData.firstName %></li>
+            <li>ID: <%=userData.userID%></li>
+          </ul> -->
+          <!-- Display exercises -->
+          <div class="exercise-list">
+            <% if (exercisesData && exercisesData.length > 0) { %> <%
+            exercisesData.forEach((exercise) => { %>
+            <h4 class="exercise"><%= exercise.exercise_name %></h4>
+            <% }); %> <% } else { %>
+            <h4>Your saved exercises will show up here!</h4>
+            <% } %>
+          </div>
+        </body>
       </div>
+    </main>
+    <div class="main-content">
+      <div id="saved-workouts"></div>
     </div>
-    <div class="footer-copyright">
-      <div class="container">&copy;2023 FRENZY, All Rights Reserved</div>
-    </div>
-  </footer>
-  <script src="/js/app.js"></script>
-</body>
-
+    <footer class="page-footer">
+      <div class="container">
+        <div>
+          <div class="col l6 s12"></div>
+          <div class="col l4 offset-l2 s12">
+            <h5>Links</h5>
+            <ul class="row">
+              <li><a href="#!">Home</a></li>
+              <li><a href="#!">How It Works</a></li>
+              <li><a href="#!">Contact</a></li>
+              <li><a href="#!">Terms and Conditions</a></li>
+              <li><a href="#!">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">&copy;2023 FRENZY, All Rights Reserved</div>
+      </div>
+    </footer>
+    <script src="/js/app.js"></script>
+  </body>
 </html>

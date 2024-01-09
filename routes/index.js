@@ -33,9 +33,30 @@ router.post("/login", function (request, response, next) {
     database.query(myQuery, function (error, data) {
       if (data.length > 0 && data[0].password === userPassword) {
         // Store userID in session
-        request.session.userID = data[0].userID;
-        // Render the user profile page with the user's information
-        response.render("login", { userEmail, userData: data[0] });
+        const userID = data[0].userID;
+        request.session.userID = userID;
+
+        // Fetch exercises data
+        const getExercisesQuery = `
+          SELECT * FROM exercises_${userID}
+        `;
+
+        database.query(getExercisesQuery, function (error, exercisesData) {
+          if (error) {
+            console.error("Error fetching exercises data:", error);
+            response.status(500).send("Internal Server Error");
+          } else {
+            // Store exercisesData in session or another way you prefer
+            request.session.exercisesData = exercisesData;
+
+            // Render the user profile page with the user's information
+            response.render("login", {
+              userEmail,
+              userData: data[0],
+              exercisesData: exercisesData,
+            });
+          }
+        });
       } else {
         console.log("Errr, incorrect credentials!");
         response.send("Incorrect credentials.");
@@ -85,7 +106,7 @@ router.post("/register", function (request, response, next) {
                 // change syntax for userID
                 const createExercisesTableQuery = `CREATE TABLE IF NOT EXISTS exercises_${userID} (
             id INT PRIMARY KEY AUTO_INCREMENT,
-            exercise_name VARCHAR(45) NOT NULL
+            exercise_name VARCHAR(45) UNIQUE NOT NULL
           );`;
 
                 database.query(
