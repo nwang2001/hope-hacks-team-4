@@ -65,7 +65,6 @@ workoutForm.addEventListener("submit", async (e) => {
   const userID = document.getElementById("user-id").dataset.value;
   console.log(userID);
   console.log(ctaBtn);
-
   ctaBtn.forEach((button) =>
     button.addEventListener("click", async () => {
       const exerciseName = button.dataset.name;
