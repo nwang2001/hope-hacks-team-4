@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hopehacksv5-dev-215003-authRole",
+      "UnauthRoleArn": "arn:aws:iam::637423253178:role/amplify-hopehacksv5-dev-215003-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::637423253178:role/amplify-hopehacksv5-dev-215003-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-hopehacksv5-dev-215003-deployment",
+      "UnauthRoleName": "amplify-hopehacksv5-dev-215003-unauthRole",
+      "StackName": "amplify-hopehacksv5-dev-215003",
+      "StackId": "arn:aws:cloudformation:us-east-1:637423253178:stack/amplify-hopehacksv5-dev-215003/caa75fa0-ae99-11ee-ae16-1245c4fbe47b",
+      "AmplifyAppId": "d19dmclsryt5a"
+    }
+  }
+}
