@@ -210,23 +210,6 @@ router.get("/api/exercises", async (req, res) => {
   const data = await response.json();
   res.json(data);
 });
-// add exercise to user
-router.post("/add-exercise", function (request, response, next) {
-  const userID = request.session.userID;
-  const exerciseName = request.body.exercise_name;
-
-  const addExerciseQuery = `INSERT INTO exercises_${userID} (exercise_name) VALUES (?)`;
-
-  database.query(addExerciseQuery, [exerciseName], function (error, results) {
-    if (error) {
-      console.error("Error adding exercise.", error);
-      response.send("Error adding exercise.");
-    } else {
-      console.log("Exercise added successfully.");
-      response.send("Exercise added successfully.");
-    }
-  });
-});
 
 // add exercise to user
 router.post("/add-exercise", function (request, response, next) {
