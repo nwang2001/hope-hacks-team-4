@@ -4,6 +4,7 @@ const database = require("../database");
 const dotenv = require("dotenv");
 dotenv.config();
 const session = require("express-session");
+const querystring = require("querystring");
 
 const app = express();
 app.use(
@@ -31,8 +32,31 @@ router.post("/login", function (request, response, next) {
 
     database.query(myQuery, function (error, data) {
       if (data.length > 0 && data[0].password === userPassword) {
-        // Render the user profile page with the user's information
-        response.render("login", { userEmail, userData: data[0] });
+        // Store userID in session
+        const userID = data[0].userID;
+        request.session.userID = userID;
+
+        // Fetch exercises data
+        const getExercisesQuery = `
+          SELECT * FROM exercises_${userID}
+        `;
+
+        database.query(getExercisesQuery, function (error, exercisesData) {
+          if (error) {
+            console.error("Error fetching exercises data:", error);
+            response.status(500).send("Internal Server Error");
+          } else {
+            // Store exercisesData in session or another way you prefer
+            request.session.exercisesData = exercisesData;
+
+            // Render the user profile page with the user's information
+            response.render("login", {
+              userEmail,
+              userData: data[0],
+              exercisesData: exercisesData,
+            });
+          }
+        });
       } else {
         console.log("Errr, incorrect credentials!");
         response.send("Incorrect credentials.");
@@ -82,7 +106,7 @@ router.post("/register", function (request, response, next) {
                 // change syntax for userID
                 const createExercisesTableQuery = `CREATE TABLE IF NOT EXISTS exercises_${userID} (
             id INT PRIMARY KEY AUTO_INCREMENT,
-            exercise_name VARCHAR(45) NOT NULL
+            exercise_name VARCHAR(45) UNIQUE NOT NULL
           );`;
 
                 database.query(
@@ -115,14 +139,36 @@ router.post("/register", function (request, response, next) {
 module.exports = router;
 
 /* GET workouts page. */
-router.get("/workouts", function (req, res, next) {
-  const userID = getUserIdFromSession(req);
+router.get("/workouts", function (request, response, next) {
+  const userID = request.session.userID;
 
-  res.render("workouts", {
+  response.render("workouts", {
     title: "Workouts",
     name: "Reggie Cheston",
-    session: req.session,
     userID,
+    // session: request.session,
+    // userID,
+  });
+});
+
+router.post("/workouts", function (request, response, next) {
+  const userID = request.session.userID;
+
+  const myQuery = `
+      SELECT * FROM users
+      WHERE email = "${userID}"
+    `;
+
+  database.query(myQuery, function (error, data) {
+    if (data.length > 0) {
+      // Store userID in session
+      request.session.userID = data[0].userID;
+      // Render the user profile page with the user's information
+      response.render("workouts", { userData: data });
+    } else {
+      console.log("Errr, incorrect credentials!");
+      response.send("Incorrect credentials.");
+    }
   });
 });
 
@@ -167,23 +213,20 @@ router.get("/api/exercises", async (req, res) => {
 
 // add exercise to user
 router.post("/add-exercise", function (request, response, next) {
-  const firstName = request.body.first_name;
+  const userID = request.session.userID;
   const exerciseName = request.body.exercise_name;
-  const addExerciseQuery = `INSERT INTO ??_exercises (name) VALUES (?)`;
 
-  database.query(
-    addExerciseQuery,
-    [firstName, exerciseName],
-    function (error, results) {
-      if (error) {
-        console.error("Error adding exercise.", error);
-        response.send("Error adding exercise.");
-      } else {
-        console.log("Exercise added successfully.");
-        response.send("Exercise added successfully.");
-      }
+  const addExerciseQuery = `INSERT INTO exercises_${userID} (exercise_name) VALUES (?)`;
+
+  database.query(addExerciseQuery, [exerciseName], function (error, results) {
+    if (error) {
+      console.error("Error adding exercise.", error);
+      response.send("Error adding exercise.");
+    } else {
+      console.log("Exercise added successfully.");
+      response.send("Exercise added successfully.");
     }
-  );
+  });
 });
 
 router.use("*", (req, res) => {
