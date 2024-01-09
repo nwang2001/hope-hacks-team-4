@@ -27,7 +27,6 @@ workoutForm.addEventListener("submit", async (e) => {
 
   console.log(data);
 
-  // FIXME if statements won't be necessary if we use dropdowns
   if (data.length === 0) {
     searchResults.textContent = "";
     searchResults.insertAdjacentHTML(

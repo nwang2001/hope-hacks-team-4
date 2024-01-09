@@ -11,96 +11,94 @@
 </head>
 
 <body>
-  <header>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="/" class="brand-logo center hide-on-med-and-down"><img src="/img/frenzyyellow.png"
-            alt="frenzy logo"></a>
-        <a href="/" class="brand-logo left hide-on-large-only"><img src="/img/smalllogo.png" alt="frenzy logo"></a>
-        <ul class="right ">
-          <li><a href="/">Home</a></li>
-          <li class="active"><a href="/workouts">Workout Builder</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <main>
-    <div class="main-content">
-      <form>
-        <div class="flex-container">
-          <label>Search for exercises:</label>
-          <div class="input-field col s12">
-            <select id="exercise-type">
-              <option value="" disabled selected>Choose your exercise type:</option>
-              <option value=""></option>
-              <option value="cardio">Cardio</option>
-              <option value="olympic-weightlifting">Olympic Weightlifting</option>
-              <option value="plyometrics">Plyometrics</option>
-              <option value="powerlifting">Powerlifting</option>
-              <option value="strength">Strength</option>
-              <option value="stretching">Stretching</option>
-              <option value="strongman">Strongman</option>
-            </select>
-          </div>
-          <div class="input-field col s12">
-            <select id="muscle-group">
-              <option value="" disabled selected>Choose your muscle type:</option>
-              <option value=""></option>
-              <option value="abdominals">Abdominals</option>
-              <option value="abductors">Abductors</option>
-              <option value="adductors">Adductors</option>
-              <option value="biceps">Biceps</option>
-              <option value="calves">Calves</option>
-              <option value="chest">Chest</option>
-              <option value="forearms">Forearms</option>
-              <option value="glutes">Glutes</option>
-              <option value="hamstrings">Hamstrings</option>
-              <option value="lats">Lats</option>
-              <option value="lower-back">Lower Back</option>
-              <option value="middle-back">Middle Back</option>
-              <option value="neck">Neck</option>
-              <option value="quadriceps">Quadriceps</option>
-              <option value="traps">Traps</option>
-              <option value="triceps">Triceps</option>
-            </select>
-          </div>
-          <div class="input-field col s12">
-            <select id="difficulty">
-              <option value="" disabled selected>Choose your difficulty:</option>
-              <option value=""></option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="expert">Expert</option>
-            </select>
-          </div>
-          <button id="submit">Submit</button>
-      </form>
-    </div>
-    </div>
-    <p id="message"></p>
-    <div id="search-results">      
-    </div>
-  </main>
-  <footer class="page-footer">
-    <div class="container">
-      <div>
-        <div class="col l6 s12"></div>
-        <div class="col l4 offset-l2 s12">
-          <h5>Links</h5>
-          <ul class="row">
-            <li><a href="#!">Home</a></li>
-            <li><a href="#!">How It Works</a></li>
-            <li><a href="#!">Contact</a></li>
-            <li><a href="#!">Terms and Conditions</a></li>
-            <li><a href="#!">Privacy Policy</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">&copy;2024 FRENZY, All Rights Reserved</div>
-    </div>
-  </footer>
-  <script src="/js/app.js"></script>
+ <header>
+   <nav>
+     <div class="nav-wrapper">
+       <a href="/" class="brand-logo center"><img src="/img/frenzyyellow.png" /></a>
+       <ul class="right">
+         <li><a href="/">Home</a></li>
+         <li class="active"><a href="/workouts">Workout Builder</a></li>
+       </ul>
+     </div>
+   </nav>
+ </header>
+ <main>
+   <div class="main-content">
+    <div id="user-id" data-value="<%=userID%>"></div>
+     <form>
+       <div class="flex-container">
+         <label>Search for exercises:</label>
+         <div class="input-field col s12">
+             <select id="exercise-type">
+                 <option value="" disabled selected>Choose your exercise type:</option>
+                 <option value="cardio">Cardio</option>
+                 <option value="olympic-weightlifting">Olympic Weightlifting</option>
+                 <option value="plyometrics">Plyometrics</option>
+                 <option value="powerlifting">Powerlifting</option>
+                 <option value="strength">Strength</option>
+                 <option value="stretching">Stretching</option>
+                 <option value="strongman">Strongman</option>
+             </select>
+         </div>
+         <div class="input-field col s12">
+             <select id="muscle-group">
+                 <option value="" disabled selected>Choose your muscle type:</option>
+                 <option value="abdominals">Abdominals</option>
+                 <option value="abductors">Abductors</option>
+                 <option value="adductors">Adductors</option>
+                 <option value="biceps">Biceps</option>
+                 <option value="calves">Calves</option>
+                 <option value="chest">Chest</option>
+                 <option value="forearms">Forearms</option>
+                 <option value="glutes">Glutes</option>
+                 <option value="hamstrings">Hamstrings</option>
+                 <option value="lats">Lats</option>
+                 <option value="lower-back">Lower Back</option>
+                 <option value="middle-back">Middle Back</option>
+                 <option value="neck">Neck</option>
+                 <option value="quadriceps">Quadriceps</option>
+                 <option value="traps">Traps</option>
+                 <option value="triceps">Triceps</option>
+             </select>
+             </div>
+             <div class="input-field col s12">
+             <select id="difficulty">
+                 <option value="" disabled selected>Choose your difficulty:</option>
+                 <option value="beginner">Beginner</option>
+                 <option value="intermediate">Intermediate</option>
+                 <option value="expert">Expert</option>
+             </select>
+             </div>
+         <button id="submit">Submit</button>
+     </form>
+     </div>
+     </div>
+     <p id="message"></p>
+     <div id="search-results"></div>
+ </main>
+ <div class="main-content">
+   <div id="search-results"></div>
+ </div>
+ <footer class="page-footer">
+   <div class="container">
+     <div>
+       <div class="col l6 s12"></div>
+       <div class="col l4 offset-l2 s12">
+         <h5>Links</h5>
+         <ul class="row">
+           <li><a href="#!">Home</a></li>
+           <li><a href="#!">How It Works</a></li>
+           <li><a href="#!">Contact</a></li>
+           <li><a href="#!">Terms and Conditions</a></li>
+           <li><a href="#!">Privacy Policy</a></li>
+         </ul>
+       </div>
+     </div>
+   </div>
+   <div class="footer-copyright">
+     <div class="container">&copy;2024 FRENZY, All Rights Reserved</div>
+   </div>
+ </footer>
+ <script src="/js/app.js"></script>
 </body>
 </html>
