@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Frenzy Exercise App, an AWS-hosted fitness application created by Reggie Cheston, Erick Rodea Sandoval, Nikki Wang, and Felicia Brown. This collaborative effort provides a user-friendly interface, allowing you to explore a diverse range of workouts based on exercise type, muscle group, and difficulty. Whether you're into cardio, strength training, powerlifting, yoga, flexibility exercises, or more, this app is designed to elevate your fitness journey.
+Welcome to the Frenzy Exercise App, a hosted fitness application created by Reggie Cheston, Erick Rodea Sandoval, Nikki Wang, and Felicia Brown. This collaborative effort provides a user-friendly interface, allowing you to explore a diverse range of workouts based on exercise type, muscle group, and difficulty. Whether you're into cardio, strength training, powerlifting, yoga, flexibility exercises, or more, this app is designed to elevate your fitness journey.
 
 ## Features
 
